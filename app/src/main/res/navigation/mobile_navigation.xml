@@ -9,7 +9,7 @@
         android:id="@+id/nav_profile"
         android:name="com.example.valorant.ui.profile.ProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/nav_friends"
