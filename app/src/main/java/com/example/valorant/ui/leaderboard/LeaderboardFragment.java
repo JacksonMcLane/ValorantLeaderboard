@@ -1,4 +1,4 @@
-package com.example.valorant.ui.home;
+package com.example.valorant.ui.leaderboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.valorant.R;
 
-public class HomeFragment extends Fragment {
+public class LeaderboardFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private LeaderboardViewModel leaderboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_user, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        leaderboardViewModel =
+                ViewModelProviders.of(this).get(LeaderboardViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        final TextView textView = root.findViewById(R.id.text_tools);
+        leaderboardViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

@@ -1,14 +1,14 @@
-package com.example.valorant.ui.send;
+package com.example.valorant.ui.invites;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SendViewModel extends ViewModel {
+public class InvitesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SendViewModel() {
+    public InvitesViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is send fragment");
     }

@@ -1,4 +1,4 @@
-package com.example.valorant.ui.tools;
+package com.example.valorant.ui.invites;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.valorant.R;
 
-public class ToolsFragment extends Fragment {
+public class InvitesFragment extends Fragment {
 
-    private ToolsViewModel toolsViewModel;
+    private InvitesViewModel invitesViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toolsViewModel =
-                ViewModelProviders.of(this).get(ToolsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        toolsViewModel.getText().observe(this, new Observer<String>() {
+        invitesViewModel =
+                ViewModelProviders.of(this).get(InvitesViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_invites, container, false);
+        final TextView textView = root.findViewById(R.id.text_send);
+        invitesViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

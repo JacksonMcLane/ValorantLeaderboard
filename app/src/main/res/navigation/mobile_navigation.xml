@@ -7,37 +7,32 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.valorant.ui.home.HomeFragment"
+        android:name="com.example.valorant.ui.profile.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_user" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.valorant.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_friends"
+        android:name="com.example.valorant.ui.friends.FriendsFragment"
+        android:label="@string/menu_friends"
+        tools:layout="@layout/fragment_friends" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.valorant.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_teams"
+        android:name="com.example.valorant.ui.teams.TeamsFragment"
+        android:label="@string/menu_teams"
+        tools:layout="@layout/fragment_teams" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.example.valorant.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/nav_leaderboard"
+        android:name="com.example.valorant.ui.leaderboard.LeaderboardFragment"
+        android:label="@string/menu_leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.example.valorant.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        android:id="@+id/nav_invites"
+        android:name="com.example.valorant.ui.invites.InvitesFragment"
+        android:label="@string/menu_invites"
+        tools:layout="@layout/fragment_invites" />
 
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="com.example.valorant.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
 </navigation>

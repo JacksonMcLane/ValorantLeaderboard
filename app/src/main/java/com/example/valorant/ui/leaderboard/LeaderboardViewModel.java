@@ -1,16 +1,16 @@
-package com.example.valorant.ui.gallery;
+package com.example.valorant.ui.leaderboard;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class LeaderboardViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public LeaderboardViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        mText.setValue("This is tools fragment");
     }
 
     public LiveData<String> getText() {

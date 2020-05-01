@@ -1,4 +1,4 @@
-package com.example.valorant.ui.slideshow;
+package com.example.valorant.ui.friends;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.valorant.R;
 
-public class SlideshowFragment extends Fragment {
+public class FriendsFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private FriendsViewModel friendsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(this, new Observer<String>() {
+        friendsViewModel =
+                ViewModelProviders.of(this).get(FriendsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_friends, container, false);
+        final TextView textView = root.findViewById(R.id.text_gallery);
+        friendsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

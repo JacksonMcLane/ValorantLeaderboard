@@ -1,4 +1,4 @@
-package com.example.valorant.ui.share;
+package com.example.valorant.ui.teams;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.valorant.R;
 
-public class ShareFragment extends Fragment {
+public class TeamsFragment extends Fragment {
 
-    private ShareViewModel shareViewModel;
+    private TeamsViewModel teamsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        shareViewModel =
-                ViewModelProviders.of(this).get(ShareViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_share, container, false);
-        final TextView textView = root.findViewById(R.id.text_share);
-        shareViewModel.getText().observe(this, new Observer<String>() {
+        teamsViewModel =
+                ViewModelProviders.of(this).get(TeamsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_teams, container, false);
+        final TextView textView = root.findViewById(R.id.text_slideshow);
+        teamsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
