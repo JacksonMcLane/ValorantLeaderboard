@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView_item_teams_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="78dp"
+        android:layout_height="61dp"
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="18dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -19,14 +19,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="20dp" />
+        tools:layout_editor_absoluteX="107dp"
+        tools:layout_editor_absoluteY="18dp" />
 
-    <ListView
-        android:id="@+id/listview_item_teams_players"
-        android:layout_width="289dp"
-        android:layout_height="427dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="178dp" />
+    <TextView
+        android:id="@+id/textView_item_teams_player_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="47dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
