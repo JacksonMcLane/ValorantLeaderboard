@@ -20,16 +20,11 @@
             android:id="@+id/nav_leaderboard"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_leaderboard" />
+        <item
+            android:id="@+id/nav_invites"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/menu_invites" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_invites"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_invites" />
-
-        </menu>
-    </item>
 
 </menu>
