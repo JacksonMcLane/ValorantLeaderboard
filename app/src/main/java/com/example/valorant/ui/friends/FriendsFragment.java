@@ -23,7 +23,7 @@ public class FriendsFragment extends Fragment {
         friendsViewModel =
                 ViewModelProviders.of(this).get(FriendsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_friends, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
+        final TextView textView = root.findViewById(R.id.textView_friendItem_username);
         friendsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
