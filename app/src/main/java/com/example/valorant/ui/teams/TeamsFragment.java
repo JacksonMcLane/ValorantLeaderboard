@@ -32,12 +32,12 @@ public class TeamsFragment extends Fragment {
 
 
 
-    public class FriendAdapter extends ArrayAdapter {
+    public class TeamsAdapter extends ArrayAdapter {
 
         private List<User> teamList;
         private int position;
 
-        public FriendAdapter(List<User> teamList) {
+        public TeamsAdapter(List<User> teamList) {
             super(getActivity().this, -1, teamList);
             this.teamList = teamList;
         }

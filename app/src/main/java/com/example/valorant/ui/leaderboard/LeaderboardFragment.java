@@ -30,12 +30,12 @@ public class LeaderboardFragment extends Fragment {
 
 
 
-    public class FriendAdapter extends ArrayAdapter {
+    public class LeaderboardAdapter extends ArrayAdapter {
 
         private List<User> leaderboardList;
         private int position;
 
-        public FriendAdapter(List<User> leaderboardList) {
+        public LeaderboardAdapter(List<User> leaderboardList) {
             super(getActivity().this, -1, leaderboardList);
             this.leaderboardList = leaderboardList;
         }
