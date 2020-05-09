@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,23 +14,51 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.valorant.R;
+import com.example.valorant.User;
+
+import java.util.List;
 
 public class LeaderboardFragment extends Fragment {
 
-    private LeaderboardViewModel leaderboardViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        leaderboardViewModel =
-                ViewModelProviders.of(this).get(LeaderboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        leaderboardViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+        View rootView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        return rootView;
+    }
+
+
+
+    public class FriendAdapter extends ArrayAdapter {
+
+        private List<User> leaderboardList;
+        private int position;
+
+        public FriendAdapter(List<User> leaderboardList) {
+            super(getActivity().this, -1, leaderboardList);
+            this.leaderboardList = leaderboardList;
+        }
+
+        public List<User> getFriendsList() {
+            return leaderboardList;
+        }
+
+        public void setFriendsList(List<User> friendsList) {
+            this.leaderboardList = friendsList;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            this.position = position;
+            LayoutInflater inflater = getLayoutInflater();
+            if(convertView == null){
+                convertView = inflater.inflate(R.layout.item_leaderboard, parent, false);
             }
-        });
-        return root;
+
+
+
+            return convertView;
+        }
     }
 }

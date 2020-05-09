@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,24 +13,53 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.valorant.MainActivity;
 import com.example.valorant.R;
+import com.example.valorant.User;
+
+import java.util.List;
 
 public class FriendsFragment extends Fragment {
 
-    private FriendsViewModel friendsViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        friendsViewModel =
-                ViewModelProviders.of(this).get(FriendsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_friends, container, false);
-        final TextView textView = root.findViewById(R.id.textView_friendItem_username);
-        friendsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+        View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
+        return rootView;
+    }
+
+
+
+    public class FriendAdapter extends ArrayAdapter {
+
+        private List<User> friendsList;
+        private int position;
+
+        public FriendAdapter(List<User> friendsList) {
+            super(getActivity().this, -1, friendsList);
+            this.friendsList = friendsList;
+        }
+
+        public List<User> getFriendsList() {
+            return friendsList;
+        }
+
+        public void setFriendsList(List<User> friendsList) {
+            this.friendsList = friendsList;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            this.position = position;
+            LayoutInflater inflater = getLayoutInflater();
+            if(convertView == null){
+                convertView = inflater.inflate(R.layout.item_friends, parent, false);
             }
-        });
-        return root;
+
+
+
+            return convertView;
+        }
     }
 }

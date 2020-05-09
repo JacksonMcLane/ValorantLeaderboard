@@ -16,20 +16,11 @@ import com.example.valorant.R;
 
 public class InvitesFragment extends Fragment {
 
-    private InvitesViewModel invitesViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        invitesViewModel =
-                ViewModelProviders.of(this).get(InvitesViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_invites, container, false);
-        final TextView textView = root.findViewById(R.id.text_send);
-        invitesViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }
