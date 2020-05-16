@@ -9,15 +9,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.example.valorant.MainActivity;
 import com.example.valorant.R;
-import com.example.valorant.User;
+import com.example.valorant.Users;
 
 import java.util.List;
 
@@ -42,19 +38,19 @@ public class FriendsFragment extends Fragment {
 
     public class FriendAdapter extends ArrayAdapter {
 
-        private List<User> friendsList;
+        private List<Users> friendsList;
         private int position;
 
-        public FriendAdapter(List<User> friendsList) {
+        public FriendAdapter(List<Users> friendsList) {
             super(getActivity().this, -1, friendsList);
             this.friendsList = friendsList;
         }
 
-        public List<User> getFriendsList() {
+        public List<Users> getFriendsList() {
             return friendsList;
         }
 
-        public void setFriendsList(List<User> friendsList) {
+        public void setFriendsList(List<Users> friendsList) {
             this.friendsList = friendsList;
         }
 

@@ -1,6 +1,6 @@
 package com.example.valorant;
 
-public class User {
+public class Users {
     private String username;
     private int aimRating;
     private int gamesenseRating;
