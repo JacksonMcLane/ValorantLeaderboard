@@ -39,7 +39,7 @@ public class LeaderboardFragment extends Fragment {
         private int position;
 
         public LeaderboardAdapter(List<Users> leaderboardList) {
-            super(getActivity().this, -1, leaderboardList);
+            super(getActivity(), -1, leaderboardList);
 
 
 
@@ -64,6 +64,9 @@ public class LeaderboardFragment extends Fragment {
 
             textViewRanking = convertView.findViewById(R.id.textView_leaderboardItem_ranking);
             textViewUsername = convertView.findViewById(R.id.textView_leaderboardItem_username);
+
+            textViewRanking.setText(leaderboardList.get(position).getRanking());
+            textViewUsername.setText(leaderboardList.get(position).getUsername());
 
             return convertView;
         }

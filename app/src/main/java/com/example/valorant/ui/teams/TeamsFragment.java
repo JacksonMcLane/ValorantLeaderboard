@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,7 +19,10 @@ import java.util.List;
 
 public class TeamsFragment extends Fragment {
 
-    ListView listViewTeams;
+    private ListView listViewTeams;
+    private ImageView imageViewProfilePic;
+    private TextView textViewTeamName;
+    private TextView textViewTeamRank;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +43,7 @@ public class TeamsFragment extends Fragment {
         private int position;
 
         public TeamsAdapter(List<Users> teamList) {
-            super(getActivity().this, -1, teamList);
+            super(getActivity(), -1, teamList);
             this.teamList = teamList;
         }
 
@@ -58,7 +63,9 @@ public class TeamsFragment extends Fragment {
                 convertView = inflater.inflate(R.layout.item_leaderboard, parent, false);
             }
 
-
+            imageViewProfilePic = convertView.findViewById(R.id.imageView_item_teams_picture);
+            textViewTeamName = convertView.findViewById(R.id.textView_item_teams_name);
+            textViewTeamRank = convertView.findViewById(R.id.textView_item_teams_player_num);
 
             return convertView;
         }

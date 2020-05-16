@@ -42,7 +42,7 @@ public class FriendsFragment extends Fragment {
         private int position;
 
         public FriendAdapter(List<Users> friendsList) {
-            super(getActivity().this, -1, friendsList);
+            super(getActivity(), -1, friendsList);
             this.friendsList = friendsList;
         }
 
