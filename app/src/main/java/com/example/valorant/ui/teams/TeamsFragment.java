@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,17 +21,20 @@ import java.util.List;
 
 public class TeamsFragment extends Fragment {
 
-
+    ListView listViewTeams;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
         View rootView = inflater.inflate(R.layout.fragment_teams, container, false);
+        wireWidgets(rootView);
         return rootView;
     }
 
-
+    private void wireWidgets(View rootView){
+        listViewTeams = rootView.findViewById(R.id.listView_teams);
+    }
 
     public class TeamsAdapter extends ArrayAdapter {
 

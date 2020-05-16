@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,15 +22,22 @@ import com.example.valorant.User;
 import java.util.List;
 
 public class FriendsFragment extends Fragment {
-
-
+    ListView listViewFriend;
+    ImageView imageViewProfilePic;
+    TextView textViewUsername;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
+
+        wireWidgets(rootView);
+
         return rootView;
     }
 
+    private void wireWidgets(View rootView) {
+        listViewFriend = rootView.findViewById(R.id.listView_friendFragment_friendsList);
+    }
 
 
     public class FriendAdapter extends ArrayAdapter {
@@ -57,7 +66,10 @@ public class FriendsFragment extends Fragment {
                 convertView = inflater.inflate(R.layout.item_friends, parent, false);
             }
 
+            textViewUsername = convertView.findViewById(R.id.textView_friendItem_username);
+            //do picture things with picasso
 
+            textViewUsername.setText(friendsList.get(position).getUsername());
 
             return convertView;
         }
