@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,14 +16,12 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.example.valorant.ui.profile.ProfileFragment;
 
-import java.util.List;
-
 public class LoginActivity extends AppCompatActivity {
     public static final String TAG = LoginActivity.class.getSimpleName();
     public static final String EXTRA_USERNAME = "login username";
     public static final int REQUEST_CREATE_ACCOUNT = 1;
 
-    private TextView textViewCreateAccount;
+    private Button buttonCreateAccount;
     private Button buttonLogin;
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -49,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        textViewCreateAccount.setOnClickListener(new View.OnClickListener() {
+        buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO replace create account startActivity with startAcitivtyForResult
@@ -90,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void handleResponse(BackendlessUser user) {
                     Toast.makeText(LoginActivity.this,
                             "Welcome " + user.getProperty("username"), Toast.LENGTH_SHORT).show();
-                    Intent loggedInIntent = new Intent(LoginActivity.this, ProfileFragment.class);
+                    Intent loggedInIntent = new Intent(LoginActivity.this, DrawerActivity.class);
                     startActivity(loggedInIntent);
                     finish(); //doesn't go back to login page again
                 }
@@ -106,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void wireWidgets() {
-        textViewCreateAccount = findViewById(R.id.textview_login_create_account);
+        buttonCreateAccount = findViewById(R.id.button_login_createAccount);
         buttonLogin = findViewById(R.id.button_login_login);
         editTextUsername = findViewById(R.id.edit_text_login_username);
         editTextPassword = findViewById(R.id.edit_text_login_password);

@@ -30,8 +30,12 @@ public class ProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         wireWidgets(rootView);
-
+        setValues();
         return rootView;
+    }
+
+    private void setValues() {
+
     }
 
     private void wireWidgets(View rootView) {

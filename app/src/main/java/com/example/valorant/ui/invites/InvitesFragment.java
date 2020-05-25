@@ -20,7 +20,11 @@ public class InvitesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        wireWidgets(rootView);
+        return rootView;
+    }
 
-        return root;
+    private void wireWidgets(View rootView) {
     }
 }
