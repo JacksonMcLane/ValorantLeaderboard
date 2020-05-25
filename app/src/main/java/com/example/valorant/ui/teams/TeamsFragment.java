@@ -55,7 +55,7 @@ public class TeamsFragment extends Fragment {
             {
                 teamAdapter = new TeamsAdapter(foundFriends);
                 listViewTeams.setAdapter(teamAdapter);
-
+//comment
                 // we're sure that the list of friends exists at this point in the code
                 listViewTeams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
