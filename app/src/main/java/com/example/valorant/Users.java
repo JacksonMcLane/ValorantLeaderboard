@@ -1,6 +1,9 @@
 package com.example.valorant;
 
-public class Users {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Users implements Parcelable {
     private String username;
     private int aimRating;
     private int gamesenseRating;
@@ -96,4 +99,47 @@ public class Users {
         this.teamRank = teamRank;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.aimRating);
+        dest.writeInt(this.communicationRating);
+        dest.writeInt(this.gamesenseRating);
+        dest.writeString(this.username);
+        dest.writeString(this.profilePicture);
+        dest.writeString(this.email);
+        dest.writeInt(this.teamRank);
+        dest.writeInt(this.ranking);
+        dest.writeString(this.ownerId);
+        dest.writeString(this.objectId);
+    }
+
+    protected Users(Parcel in){
+        this.username = in.readString();
+        this.aimRating = in.readInt();
+        this.gamesenseRating = in.readInt();
+        this.communicationRating = in.readInt();
+        this.email = in.readString();
+        this.objectId = in.readString();
+        this.ownerId = in.readString();
+        this.profilePicture = in.readString();
+        this.ranking = in.readInt();
+        this.teamRank = in.readInt();
+    }
+
+    public static final Creator<Users> CREATOR = new Creator<Users>() {
+        @Override
+        public Users createFromParcel(Parcel source) {
+            return new Users(source);
+        }
+
+        @Override
+        public Users[] newArray(int size) {
+            return new Users[size];
+        }
+    };
 }

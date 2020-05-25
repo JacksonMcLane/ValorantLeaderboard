@@ -1,19 +1,28 @@
 package com.example.valorant.ui.teams;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
 import com.example.valorant.R;
+import com.example.valorant.TeamDetailActivity;
 import com.example.valorant.Users;
+
 
 import java.util.List;
 
@@ -23,14 +32,60 @@ public class TeamsFragment extends Fragment {
     private ImageView imageViewProfilePic;
     private TextView textViewTeamName;
     private TextView textViewTeamRank;
-
+    private TeamsAdapter teamAdapter;
+    public static final String EXTRA_TEAM = "Team";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
         View rootView = inflater.inflate(R.layout.fragment_teams, container, false);
         wireWidgets(rootView);
+        loadDataFromBackendless();
         return rootView;
+    }
+
+    public void loadDataFromBackendless(){
+        String userId = Backendless.UserService.CurrentUser().getObjectId();
+        String whereClause = "users = " + "'" + userId + "'";
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        queryBuilder.setWhereClause(whereClause);
+        Backendless.Data.of(Users.class).find(queryBuilder, new AsyncCallback<List<Users>>(){
+            @Override
+            public void handleResponse(final List<Users> foundFriends)
+            {
+                teamAdapter = new TeamsAdapter(foundFriends);
+                listViewTeams.setAdapter(teamAdapter);
+
+                // we're sure that the list of friends exists at this point in the code
+                listViewTeams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent detailIntent = new Intent(getActivity(), TeamDetailActivity.class);
+                        detailIntent.putExtra(EXTRA_TEAM, foundFriends.get(i));
+                        startActivity(detailIntent);
+                    }
+                });
+
+                /**
+                 * open up add friend activity, search by username
+                 * **/
+//                floatingActionButtonNewFriend.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent newFriendIntent = new Intent(FriendListActivity.this, FriendDetailActivity.class);
+//                        startActivity(newFriendIntent);
+//                    }
+//                });
+
+
+            }
+            @Override
+            public void handleFault( BackendlessFault fault )
+            {
+                Toast.makeText(getActivity(), fault.getDetail(), Toast.LENGTH_SHORT).show();
+                // an error has occurred, the error code can be retrieved with fault.getCode()
+            }
+        });
     }
 
     private void wireWidgets(View rootView){
@@ -47,14 +102,6 @@ public class TeamsFragment extends Fragment {
             this.teamList = teamList;
         }
 
-        public List<Users> getFriendsList() {
-            return teamList;
-        }
-
-        public void setFriendsList(List<Users> friendsList) {
-            this.teamList = friendsList;
-        }
-
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             this.position = position;
@@ -66,6 +113,8 @@ public class TeamsFragment extends Fragment {
             imageViewProfilePic = convertView.findViewById(R.id.imageView_item_teams_picture);
             textViewTeamName = convertView.findViewById(R.id.textView_item_teams_name);
             textViewTeamRank = convertView.findViewById(R.id.textView_item_teams_player_num);
+
+
 
             return convertView;
         }
