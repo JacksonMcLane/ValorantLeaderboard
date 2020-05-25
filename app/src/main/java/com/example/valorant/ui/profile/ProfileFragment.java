@@ -8,11 +8,19 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.property.UserProperty;
 import com.example.valorant.R;
+import com.example.valorant.Users;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
@@ -22,7 +30,7 @@ public class ProfileFragment extends Fragment {
     private RatingBar ratingBarAim;
     private TextView textViewGamesenseHeader;
     private RatingBar ratingBarGamesense;
-    private TextView textViewCommunication;
+    private TextView textViewCommunicationHeader;
     private RatingBar ratingBarCommunication;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -35,7 +43,39 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setValues() {
+        BackendlessUser user = Backendless.UserService.CurrentUser();
 
+        textViewUsername.setText(user.getProperty("username").toString());
+        if(user.getProperty("profilePicture") != null){
+            Picasso.get().load(String.valueOf(user.getProperty("profilePicture"))).into(imageViewProfilePhoto);
+        }
+        textViewAimHeader.setText(R.string.aim_rating);
+        textViewGamesenseHeader.setText(R.string.gamesense_rating);
+        textViewCommunicationHeader.setText(R.string.communication_rating);
+        if(user.getProperty("aimRating") != null) {
+            ratingBarAim.setProgress((int) user.getProperty("aimRating"));
+        }
+        else{
+            ratingBarAim.setProgress(0);
+        }
+
+        if(user.getProperty("gamesenseRating") != null){
+            ratingBarGamesense.setProgress((int) user.getProperty("gamesenseRating"));
+        }
+        else{
+            ratingBarGamesense.setProgress(0);
+        }
+
+        if(user.getProperty("communicationRating") != null){
+            ratingBarCommunication.setProgress((int) user.getProperty("communicationRating"));
+        }
+        else{
+            ratingBarCommunication.setProgress(0);
+        }
+    }
+
+    public String getCurrentUser(){
+        return Backendless.UserService.CurrentUser().getUserId();
     }
 
     private void wireWidgets(View rootView) {
@@ -45,7 +85,7 @@ public class ProfileFragment extends Fragment {
         ratingBarAim = rootView.findViewById(R.id.ratingBar_profile_aim);
         textViewGamesenseHeader = rootView.findViewById(R.id.textView_profile_gamesense_header);
         ratingBarGamesense = rootView.findViewById(R.id.ratingBar_profile_gamesense);
-        textViewCommunication = rootView.findViewById(R.id.textView_profile_communication_header);
+        textViewCommunicationHeader = rootView.findViewById(R.id.textView_profile_communication_header);
         ratingBarCommunication = rootView.findViewById(R.id.ratingBar_profile_communication);
 
         //prevents mouse/tabbing into the rating bar

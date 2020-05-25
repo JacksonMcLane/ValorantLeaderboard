@@ -12,8 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.backendless.Backendless;
 import com.example.valorant.R;
 import com.example.valorant.Users;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -64,7 +66,10 @@ public class FriendsFragment extends Fragment {
 
             textViewUsername = convertView.findViewById(R.id.textView_friendItem_username);
             //do picture things with picasso
+            imageViewProfilePic = convertView.findViewById(R.id.imageView_friendItem_profilePicture);
+            textViewUsername = convertView.findViewById(R.id.textView_friendItem_username);
 
+            Picasso.get().load("").into(imageViewProfilePic);
             textViewUsername.setText(friendsList.get(position).getUsername());
 
             return convertView;

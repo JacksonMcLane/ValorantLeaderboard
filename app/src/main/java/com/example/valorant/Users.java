@@ -12,6 +12,9 @@ public class Users {
     private int ranking;
     private int teamRank;
 
+    public Users() {
+    }
+
     public String getOwnerId() {
         return ownerId;
     }
@@ -61,7 +64,6 @@ public class Users {
         this.aimRating = aimRating;
     }
 
-
     public String getUsername() {
         return username;
     }
@@ -93,4 +95,5 @@ public class Users {
     public void setTeamRank(int teamRank) {
         this.teamRank = teamRank;
     }
+
 }
