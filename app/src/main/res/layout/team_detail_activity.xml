@@ -18,13 +18,12 @@
 
     <ListView
         android:id="@+id/listView_teamDetail_teamMembers"
-        android:layout_width="409dp"
-        android:layout_height="685dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_teamDetail_teamName"
-        app:layout_constraintVertical_bias="0.461" />
+        app:layout_constraintVertical_bias="0.307" />
 </androidx.constraintlayout.widget.ConstraintLayout>
