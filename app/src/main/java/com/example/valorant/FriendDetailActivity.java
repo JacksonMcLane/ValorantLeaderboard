@@ -59,6 +59,7 @@ public class FriendDetailActivity extends AppCompatActivity {
                     }
                     @Override
                     public void handleFault(BackendlessFault fault) {
+                        fault.getMessage();
                     }
                 });
             }

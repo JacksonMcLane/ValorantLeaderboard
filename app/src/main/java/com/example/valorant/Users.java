@@ -3,7 +3,7 @@ package com.example.valorant;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Users implements Parcelable {
+public class Users implements Parcelable, Comparable<Users> {
     private String username;
     private int aimRating;
     private int gamesenseRating;
@@ -131,4 +131,9 @@ public class Users implements Parcelable {
             return new Users[size];
         }
     };
+
+    @Override
+    public int compareTo(Users user) {
+        return this.getRanking() - user.getRanking();
+    }
 }
