@@ -17,6 +17,20 @@ public class Team implements Parcelable {
 
     public Team(){}
 
+    @Override
+    public String toString() {
+        return "Team{" +
+                "teamName='" + teamName + '\'' +
+                ", rating=" + rating +
+                ", aimRating=" + aimRating +
+                ", gamesenseRating=" + gamesenseRating +
+                ", communicationRating=" + communicationRating +
+                ", teamPicture='" + teamPicture + '\'' +
+                ", objectId='" + objectId + '\'' +
+                ", members=" + members +
+                '}';
+    }
+
     public String getTeamName() {
         return teamName;
     }
@@ -87,18 +101,26 @@ public class Team implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.teamName);
+        dest.writeInt(this.rating);
+        dest.writeInt(this.aimRating);
+        dest.writeInt(this.gamesenseRating);
+        dest.writeInt(this.communicationRating);
+        dest.writeString(this.teamPicture);
+        dest.writeString(this.objectId);
+        dest.writeTypedList(this.members);
     }
 
-    protected Team(Parcel in){
+    protected Team(Parcel in) {
         this.teamName = in.readString();
         this.rating = in.readInt();
         this.aimRating = in.readInt();
         this.gamesenseRating = in.readInt();
         this.communicationRating = in.readInt();
-        this.objectId = in.readString();
         this.teamPicture = in.readString();
+        this.objectId = in.readString();
+        this.members = in.createTypedArrayList(Users.CREATOR);
     }
 
     public static final Creator<Team> CREATOR = new Creator<Team>() {

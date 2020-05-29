@@ -17,6 +17,21 @@ public class Users implements Parcelable, Comparable<Users> {
     public Users() {
     }
 
+    @Override
+    public String toString() {
+        return "Users{" +
+                "username='" + username + '\'' +
+                ", aimRating=" + aimRating +
+                ", gamesenseRating=" + gamesenseRating +
+                ", communicationRating=" + communicationRating +
+                ", email='" + email + '\'' +
+                ", objectId='" + objectId + '\'' +
+                ", ownerId='" + ownerId + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                ", ranking=" + ranking +
+                '}';
+    }
+
     public String getOwnerId() {
         return ownerId;
     }

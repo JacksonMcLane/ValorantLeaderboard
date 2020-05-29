@@ -52,14 +52,13 @@ public class FriendDetailActivity extends AppCompatActivity {
                 user.setAimRating(ratingBarAim.getProgress());
                 user.setGamesenseRating(ratingBarGamesense.getProgress());
                 user.setCommunicationRating(ratingBarCommunication.getProgress());
-                Backendless.Persistence.save(user, new AsyncCallback<Users>() {
+                Backendless.Persistence.of(Users.class).save(user, new AsyncCallback<Users>() {
                     @Override
                     public void handleResponse(Users response) {
                         Toast.makeText(FriendDetailActivity.this, "Successfully Updated Friend", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void handleFault(BackendlessFault fault) {
-                        fault.getMessage();
                     }
                 });
             }

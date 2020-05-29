@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -41,6 +42,7 @@ public class TeamDetailActivity extends AppCompatActivity {
         wireWidgets();
         Intent foundIntent = getIntent();
         foundTeam = foundIntent.getParcelableExtra(TeamsFragment.EXTRA_TEAM);
+        Log.d("TeamDetailActivity", "onCreate: " + foundTeam.getObjectId());
         loadDataFromBackendless();
     }
 
@@ -53,17 +55,26 @@ public class TeamDetailActivity extends AppCompatActivity {
 
     private void loadDataFromBackendless() {
         String teamId = foundTeam.getObjectId();
+        Log.d("TeamDetailActivity", "loadDataFromBackendless: " + foundTeam.getObjectId());
         String whereClause = "objectId = " + "'" + teamId + "'";
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         queryBuilder.setWhereClause(whereClause);
+        queryBuilder.setRelationsDepth(1);
         Backendless.Data.of(Team.class).find(queryBuilder, new AsyncCallback<List<Team>>() {
             @Override
             public void handleResponse(List<Team> response) {
                 if(response != null) {
                     //produces an empty list, figure out the whereClause issues
+                    Log.d("TeamDetailActivity", "handleResponse: " + response.get(0).toString());
                     memberAdapter = new MemberAdapter(response.get(0).getMembers());
                     listViewTeamMembers.setAdapter(memberAdapter);
                     textViewTeamName.setText(response.get(0).getTeamName());
+                    listViewTeamMembers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        }
+                    });
                 }
             }
 
@@ -90,13 +101,15 @@ public class TeamDetailActivity extends AppCompatActivity {
             this.position = position;
             LayoutInflater inflater = getLayoutInflater();
             if(convertView == null){
-                convertView = inflater.inflate(R.layout.team_detail_activity, parent, false);
+                convertView = inflater.inflate(R.layout.item_team_detail, parent, false);
             }
 
             textViewTeamMemberName = convertView.findViewById(R.id.textView_itemTeamDetail_username);
             imageViewMemberProfilePic = convertView.findViewById(R.id.imageView_itemTeamDetail_picture);
-
-            Picasso.get().load(memberList.get(position).getProfilePicture()).into(imageViewMemberProfilePic);
+            Users member = memberList.get(position);
+            if(member.getProfilePicture() != null && member.getProfilePicture().length() > 0) {
+                Picasso.get().load(memberList.get(position).getProfilePicture()).into(imageViewMemberProfilePic);
+            }
             textViewTeamMemberName.setText(memberList.get(position).getUsername());
 
             return convertView;

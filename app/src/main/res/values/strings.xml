@@ -16,4 +16,8 @@
     <string name="aim_rating">Aim Rating</string>
     <string name="gamesense_rating">Gamesense Rating</string>
     <string name="communication_rating">Communication Rating</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_username">Edit Username</string>
+    <string name="edit_profile_picture_url">Edit Profile Picture URL</string>
+    <string name="save_profile">Save Profile</string>
 </resources>

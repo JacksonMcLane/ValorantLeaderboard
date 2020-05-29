@@ -2,6 +2,7 @@ package com.example.valorant.ui.teams;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class TeamsFragment extends Fragment {
                 listViewTeams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.d("TeamsDetailActivity", "onItemClick: " + foundTeams.get(i).getObjectId());
                         Intent detailIntent = new Intent(getActivity(), TeamDetailActivity.class);
                         detailIntent.putExtra(EXTRA_TEAM, foundTeams.get(i));
                         startActivity(detailIntent);

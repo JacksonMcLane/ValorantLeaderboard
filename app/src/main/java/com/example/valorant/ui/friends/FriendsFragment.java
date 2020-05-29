@@ -112,8 +112,11 @@ public class FriendsFragment extends Fragment {
 
             imageViewProfilePic = convertView.findViewById(R.id.imageView_friendItem_profilePicture);
             textViewUsername = convertView.findViewById(R.id.textView_friendItem_username);
-
-            Picasso.get().load(friendsList.get(position).getProfilePicture()).into(imageViewProfilePic);
+            Users friend = friendsList.get(position);
+            if(friend.getProfilePicture() != null && (friend.getProfilePicture()).length() > 0)
+            {
+                Picasso.get().load(friendsList.get(position).getProfilePicture()).into(imageViewProfilePic);
+            }
             textViewUsername.setText(friendsList.get(position).getUsername());
 
             return convertView;
