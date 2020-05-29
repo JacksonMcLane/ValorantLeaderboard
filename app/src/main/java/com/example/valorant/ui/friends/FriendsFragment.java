@@ -23,6 +23,7 @@ import com.backendless.persistence.DataQueryBuilder;
 import com.example.valorant.FriendDetailActivity;
 import com.example.valorant.R;
 import com.example.valorant.Users;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -109,15 +110,11 @@ public class FriendsFragment extends Fragment {
                 convertView = inflater.inflate(R.layout.item_friends, parent, false);
             }
 
-            textViewUsername = convertView.findViewById(R.id.textView_friendItem_username);
-            //do picture things with picasso
             imageViewProfilePic = convertView.findViewById(R.id.imageView_friendItem_profilePicture);
             textViewUsername = convertView.findViewById(R.id.textView_friendItem_username);
 
-
-            //Picasso.get().load("").into(imageViewProfilePic);
+            Picasso.get().load(friendsList.get(position).getProfilePicture()).into(imageViewProfilePic);
             textViewUsername.setText(friendsList.get(position).getUsername());
-            Log.d("TEST", "getView: " + textViewUsername.getText());
 
             return convertView;
         }

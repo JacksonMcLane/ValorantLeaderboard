@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textView_friendItem_username"
-        android:layout_width="218dp"
-        android:layout_height="91dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="Name"
@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/imageView_friendItem_profilePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250px"
+        android:layout_height="250px"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"

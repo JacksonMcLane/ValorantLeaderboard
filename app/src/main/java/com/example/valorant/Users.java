@@ -13,7 +13,6 @@ public class Users implements Parcelable {
     private String ownerId;
     private String profilePicture;
     private int ranking;
-    private int teamRank;
 
     public Users() {
     }
@@ -91,14 +90,6 @@ public class Users implements Parcelable {
         this.ranking = ranking;
     }
 
-    public int getTeamRank() {
-        return teamRank;
-    }
-
-    public void setTeamRank(int teamRank) {
-        this.teamRank = teamRank;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -112,7 +103,6 @@ public class Users implements Parcelable {
         dest.writeString(this.username);
         dest.writeString(this.profilePicture);
         dest.writeString(this.email);
-        dest.writeInt(this.teamRank);
         dest.writeInt(this.ranking);
         dest.writeString(this.ownerId);
         dest.writeString(this.objectId);
@@ -128,7 +118,6 @@ public class Users implements Parcelable {
         this.ownerId = in.readString();
         this.profilePicture = in.readString();
         this.ranking = in.readInt();
-        this.teamRank = in.readInt();
     }
 
     public static final Creator<Users> CREATOR = new Creator<Users>() {

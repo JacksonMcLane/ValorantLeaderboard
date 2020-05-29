@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,8 +19,10 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 import com.example.valorant.R;
+import com.example.valorant.Team;
 import com.example.valorant.TeamDetailActivity;
-import com.example.valorant.Users;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class TeamsFragment extends Fragment {
     private TextView textViewTeamName;
     private TextView textViewTeamRank;
     private TeamsAdapter teamAdapter;
+    private FloatingActionButton floatingActionButtonNewTeam;
     public static final String EXTRA_TEAM = "Team";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,58 +48,50 @@ public class TeamsFragment extends Fragment {
 
     public void loadDataFromBackendless(){
         String userId = Backendless.UserService.CurrentUser().getObjectId();
-        String whereClause = "users = " + "'" + userId + "'";
+        String whereClause = "members = " + "'" + userId + "'";
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         queryBuilder.setWhereClause(whereClause);
-        Backendless.Data.of(Users.class).find(queryBuilder, new AsyncCallback<List<Users>>(){
+        Backendless.Data.of(Team.class).find(new AsyncCallback<List<Team>>() {
             @Override
-            public void handleResponse(final List<Users> foundFriends)
-            {
-                teamAdapter = new TeamsAdapter(foundFriends);
+            public void handleResponse(final List<Team> foundTeams) {
+                teamAdapter = new TeamsAdapter(foundTeams);
                 listViewTeams.setAdapter(teamAdapter);
-//comment
-                // we're sure that the list of friends exists at this point in the code
                 listViewTeams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Intent detailIntent = new Intent(getActivity(), TeamDetailActivity.class);
-                        detailIntent.putExtra(EXTRA_TEAM, foundFriends.get(i));
+                        detailIntent.putExtra(EXTRA_TEAM, foundTeams.get(i));
                         startActivity(detailIntent);
                     }
                 });
 
-                /**
-                 * open up add friend activity, search by username
-                 * **/
-//                floatingActionButtonNewFriend.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent newFriendIntent = new Intent(FriendListActivity.this, FriendDetailActivity.class);
-//                        startActivity(newFriendIntent);
-//                    }
-//                });
+                floatingActionButtonNewTeam.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-
+                  }
+                });
             }
+
             @Override
-            public void handleFault( BackendlessFault fault )
-            {
-                Toast.makeText(getActivity(), fault.getDetail(), Toast.LENGTH_SHORT).show();
-                // an error has occurred, the error code can be retrieved with fault.getCode()
+            public void handleFault(BackendlessFault fault) {
+
             }
         });
+
     }
 
     private void wireWidgets(View rootView){
         listViewTeams = rootView.findViewById(R.id.listView_teams);
+        floatingActionButtonNewTeam = rootView.findViewById(R.id.floatingActionButton_teams_add_team);
     }
 
     public class TeamsAdapter extends ArrayAdapter {
 
-        private List<Users> teamList;
+        private List<Team> teamList;
         private int position;
 
-        public TeamsAdapter(List<Users> teamList) {
+        public TeamsAdapter(List<Team> teamList) {
             super(getActivity(), -1, teamList);
             this.teamList = teamList;
         }
@@ -107,14 +101,16 @@ public class TeamsFragment extends Fragment {
             this.position = position;
             LayoutInflater inflater = getLayoutInflater();
             if(convertView == null){
-                convertView = inflater.inflate(R.layout.item_leaderboard, parent, false);
+                convertView = inflater.inflate(R.layout.item_teams, parent, false);
             }
 
             imageViewProfilePic = convertView.findViewById(R.id.imageView_item_teams_picture);
             textViewTeamName = convertView.findViewById(R.id.textView_item_teams_name);
-            textViewTeamRank = convertView.findViewById(R.id.textView_item_teams_player_num);
+            textViewTeamRank = convertView.findViewById(R.id.textView_item_teams_rating);
 
-
+            textViewTeamName.setText(teamList.get(position).getTeamName());
+            textViewTeamRank.setText(String.valueOf(teamList.get(position).getRating()));
+            Picasso.get().load(teamList.get(position).getTeamPicture()).into(imageViewProfilePic);
 
             return convertView;
         }
