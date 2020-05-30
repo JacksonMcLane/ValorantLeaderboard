@@ -91,6 +91,10 @@ public class Team implements Parcelable {
         return members;
     }
 
+    public Users getMember(int position){
+        return members.get(position);
+    }
+
     public void setMembers(List<Users> members) {
         this.members = members;
     }

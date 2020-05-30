@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.backendless.Backendless;
-import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
@@ -34,6 +33,7 @@ public class TeamDetailActivity extends AppCompatActivity {
     private ImageView imageViewMemberProfilePic;
     private Team foundTeam;
     private MemberAdapter memberAdapter;
+    public static final String EXTRA_MEMBER = "Member";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class TeamDetailActivity extends AppCompatActivity {
         wireWidgets();
         Intent foundIntent = getIntent();
         foundTeam = foundIntent.getParcelableExtra(TeamsFragment.EXTRA_TEAM);
-        Log.d("TeamDetailActivity", "onCreate: " + foundTeam.getObjectId());
         loadDataFromBackendless();
     }
 
@@ -62,17 +61,17 @@ public class TeamDetailActivity extends AppCompatActivity {
         queryBuilder.setRelationsDepth(1);
         Backendless.Data.of(Team.class).find(queryBuilder, new AsyncCallback<List<Team>>() {
             @Override
-            public void handleResponse(List<Team> response) {
+            public void handleResponse(final List<Team> response) {
                 if(response != null) {
-                    //produces an empty list, figure out the whereClause issues
-                    Log.d("TeamDetailActivity", "handleResponse: " + response.get(0).toString());
                     memberAdapter = new MemberAdapter(response.get(0).getMembers());
                     listViewTeamMembers.setAdapter(memberAdapter);
                     textViewTeamName.setText(response.get(0).getTeamName());
                     listViewTeamMembers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                            Intent memberIntent = new Intent(TeamDetailActivity.this, FriendDetailActivity.class);
+                            memberIntent.putExtra(TeamDetailActivity.EXTRA_MEMBER, response.get(0).getMembers().get(i));
+                            startActivity(memberIntent);
                         }
                     });
                 }
@@ -108,7 +107,8 @@ public class TeamDetailActivity extends AppCompatActivity {
             imageViewMemberProfilePic = convertView.findViewById(R.id.imageView_itemTeamDetail_picture);
             Users member = memberList.get(position);
             if(member.getProfilePicture() != null && member.getProfilePicture().length() > 0) {
-                Picasso.get().load(memberList.get(position).getProfilePicture()).into(imageViewMemberProfilePic);
+                Picasso.get().load(memberList.get(position).getProfilePicture()).resize(50, 50)
+                        .centerCrop().into(imageViewMemberProfilePic);
             }
             textViewTeamMemberName.setText(memberList.get(position).getUsername());
 

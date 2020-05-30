@@ -37,7 +37,6 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
-
         wireWidgets(rootView);
         loadDataFromBackendless();
         return rootView;
@@ -48,6 +47,7 @@ public class FriendsFragment extends Fragment {
         String whereClause = "users = " + "'" + userId + "'";
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         queryBuilder.setWhereClause(whereClause);
+        queryBuilder.setRelationsDepth(2);
         Backendless.Data.of(Users.class).find(queryBuilder, new AsyncCallback<List<Users>>(){
             @Override
             public void handleResponse(final List<Users> foundFriends)
@@ -115,7 +115,8 @@ public class FriendsFragment extends Fragment {
             Users friend = friendsList.get(position);
             if(friend.getProfilePicture() != null && (friend.getProfilePicture()).length() > 0)
             {
-                Picasso.get().load(friendsList.get(position).getProfilePicture()).into(imageViewProfilePic);
+                Picasso.get().load(friendsList.get(position).getProfilePicture()).resize(50, 50)
+                        .centerCrop().into(imageViewProfilePic);
             }
             textViewUsername.setText(friendsList.get(position).getUsername());
 

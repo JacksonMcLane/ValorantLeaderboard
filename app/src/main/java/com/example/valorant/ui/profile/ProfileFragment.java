@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment {
     private EditText editTextEditUsername;
     private EditText editTextProfilePictureUrl;
     private Button buttonSaveProfile;
+    private BackendlessUser user = Backendless.UserService.CurrentUser();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,7 +60,6 @@ public class ProfileFragment extends Fragment {
                 editTextProfilePictureUrl.setVisibility(View.INVISIBLE);
                 buttonSaveProfile.setVisibility(View.INVISIBLE);
                 textViewUsername.setVisibility(View.VISIBLE);
-                BackendlessUser user = new BackendlessUser();
                 if(editTextEditUsername.getText() != null) {
                     user.setProperty("username", String.valueOf(editTextEditUsername.getText()));
                 }
@@ -98,6 +98,14 @@ public class ProfileFragment extends Fragment {
                 editTextProfilePictureUrl.setVisibility(View.VISIBLE);
                 buttonSaveProfile.setVisibility(View.VISIBLE);
                 textViewUsername.setVisibility(View.INVISIBLE);
+                if(user.getProperty("profilePicture") != null && user.getProperty("profilePicture").toString().length() > 0){
+                    Picasso.get()
+                            .load(user.getProperty("profilePicture").toString())
+                            .resize(250, 250)
+                            .centerCrop()
+                            .into(imageViewProfilePhoto);
+                    Picasso.get().load(user.getProperty("profilePicture").toString()).into(imageViewProfilePhoto);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -105,7 +113,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setValues() {
-        BackendlessUser user = Backendless.UserService.CurrentUser();
 
         textViewUsername.setText(user.getProperty("username").toString());
         if(user.getProperty("profilePicture") != null &&((String)user.getProperty("profilePicture")).length() > 0){

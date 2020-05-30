@@ -106,24 +106,29 @@ public class Users implements Parcelable, Comparable<Users> {
     }
 
     @Override
+    public int compareTo(Users user) {
+        return this.getRanking() - user.getRanking();
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.aimRating);
-        dest.writeInt(this.communicationRating);
-        dest.writeInt(this.gamesenseRating);
         dest.writeString(this.username);
-        dest.writeString(this.profilePicture);
+        dest.writeInt(this.aimRating);
+        dest.writeInt(this.gamesenseRating);
+        dest.writeInt(this.communicationRating);
         dest.writeString(this.email);
-        dest.writeInt(this.ranking);
-        dest.writeString(this.ownerId);
         dest.writeString(this.objectId);
+        dest.writeString(this.ownerId);
+        dest.writeString(this.profilePicture);
+        dest.writeInt(this.ranking);
     }
 
-    protected Users(Parcel in){
+    protected Users(Parcel in) {
         this.username = in.readString();
         this.aimRating = in.readInt();
         this.gamesenseRating = in.readInt();
@@ -146,9 +151,4 @@ public class Users implements Parcelable, Comparable<Users> {
             return new Users[size];
         }
     };
-
-    @Override
-    public int compareTo(Users user) {
-        return this.getRanking() - user.getRanking();
-    }
 }

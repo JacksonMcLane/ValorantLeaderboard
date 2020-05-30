@@ -1,8 +1,8 @@
 package com.example.valorant;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +17,7 @@ import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.example.valorant.ui.friends.FriendsFragment;
+import com.squareup.picasso.Picasso;
 
 public class FriendDetailActivity extends AppCompatActivity {
 
@@ -31,16 +32,24 @@ public class FriendDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.friend_detail_activity);
         wireWidgets();
         Intent foundIntent = getIntent();
-        user = foundIntent.getParcelableExtra(FriendsFragment.EXTRA_FRIEND);
+        if(foundIntent.getParcelableExtra(FriendsFragment.EXTRA_FRIEND) != null){
+            user = foundIntent.getParcelableExtra(FriendsFragment.EXTRA_FRIEND);
+        }
+        else{
+            user = foundIntent.getParcelableExtra(TeamDetailActivity.EXTRA_MEMBER);
+        }
 
         ratingBarAim.setProgress(user.getAimRating());
         ratingBarGamesense.setProgress(user.getGamesenseRating());
         ratingBarCommunication.setProgress(user.getCommunicationRating());
         textViewUsername.setText(user.getUsername());
+        if(user.getProfilePicture() != null && user.getProfilePicture().length() > 0){
+            Picasso.get().load(user.getProfilePicture()).resize(50, 50)
+                    .centerCrop().into(imageViewPicture);
+        }
         setButtonListener();
     }
 
@@ -67,7 +76,6 @@ public class FriendDetailActivity extends AppCompatActivity {
     }
 
     private void wireWidgets() {
-
         imageViewPicture = findViewById(R.id.imageView_friendDetail_picture);
         textViewUsername = findViewById(R.id.textView_friendDetail_username);
         ratingBarAim = findViewById(R.id.ratingBar_friendDetail_aim);
